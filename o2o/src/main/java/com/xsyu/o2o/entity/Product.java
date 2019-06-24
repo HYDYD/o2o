@@ -1,4 +1,4 @@
-package com.xsyu.entity;
+package com.xsyu.o2o.entity;
 
 import java.util.Date;
 import java.util.List;
