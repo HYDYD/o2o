@@ -10,6 +10,7 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Random;
@@ -41,9 +42,9 @@ public class ImageUtil {
      * @param targetAddr
      * @return
      */
-    public static String generatorThumbnail(File thumbnail, String targetAddr) {
+    public static String generatorThumbnail(InputStream thumbnail, String fileName, String targetAddr) {
         String realFileName = getRandomFileName();
-        String extension = getFileExtension(thumbnail);
+        String extension = getFileExtension(fileName);
         makeDirPath(targetAddr);
         String relativeAddr = targetAddr + realFileName + extension;
         logger.debug("current relativeAddr is:" + relativeAddr);
@@ -71,20 +72,18 @@ public class ImageUtil {
 
     /**
      * 获取文件扩展名
-     * @param thumbnail
+     * @param fileName
      * @return
      */
-    private static String getFileExtension(File thumbnail) {
-        String originalFileName = thumbnail.getName();
-        return originalFileName.substring(originalFileName.lastIndexOf("."));
-
+    private static String getFileExtension(String fileName) {
+        return fileName.substring(fileName.lastIndexOf("."));
     }
 
     /**
      * 生成随机文件名，当前时间+五位随机数
      * @return
      */
-    private static String getRandomFileName() {
+    public static String getRandomFileName() {
         int rand = random.nextInt(89999) + 10000;
         String nowTime = simpleDateFormat.format(new Date());
         return nowTime+rand;

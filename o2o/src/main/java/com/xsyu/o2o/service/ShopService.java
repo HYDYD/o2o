@@ -4,6 +4,7 @@ import com.xsyu.o2o.dto.ShopExecution;
 import com.xsyu.o2o.entity.Shop;
 
 import java.io.File;
+import java.io.InputStream;
 
 /**
  * Created by HYDYD.
@@ -13,8 +14,9 @@ public interface ShopService {
     /**
      * 新加商店
      * @param shop
-     * @param shopImg
+     * @param shopImgInputStream
+     * @param fileName
      * @return
      */
-    ShopExecution addShop(Shop shop, File shopImg);
+    ShopExecution addShop(Shop shop, InputStream shopImgInputStream, String fileName);
 }
