@@ -26,7 +26,6 @@ public class Shop {
     //属于店铺的类别
     private ShopCategory shopCategory;
 
-
     public Long getShopId() {
         return shopId;
     }

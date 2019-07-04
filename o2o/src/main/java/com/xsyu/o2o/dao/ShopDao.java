@@ -6,7 +6,7 @@ import com.xsyu.o2o.entity.Shop;
  * Created by HYDYD.
  * 2019/6/27 20:27
  */
-public interface ShopDao {
+public interface  ShopDao {
     /**
      * 新增店铺
      * @param shop
@@ -20,4 +20,11 @@ public interface ShopDao {
      * @return
      */
     int updateShop(Shop shop);
+
+    /**
+     * 查询店铺
+     * @param shopId
+     * @return
+     */
+    Shop queryByShopId(long shopId);
 }

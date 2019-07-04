@@ -20,7 +20,7 @@ public class Product {
     private Date createTime;
     private Date lastEditTime;
     //0.下架 1.在前端展示系统展示
-    private Integer enableStatus;
+    private int enableStatus;
 
     private List<ProductImg> productImgList;
     private ProductCategory productCategory;
@@ -99,11 +99,11 @@ public class Product {
         this.lastEditTime = lastEditTime;
     }
 
-    public Integer getEnableStatus() {
+    public int getEnableStatus() {
         return enableStatus;
     }
 
-    public void setEnableStatus(Integer enableStatus) {
+    public void setEnableStatus(int enableStatus) {
         this.enableStatus = enableStatus;
     }
 

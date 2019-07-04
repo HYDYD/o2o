@@ -10,11 +10,11 @@ public class HeadLine {
     /**
      * 轮播图头条
      */
-    private Long  lineId;
+    private Long lineId;
     private String lineName;
     private String lineLink;
     private String lineImg;
-    private Integer priority;
+    private int priority;
     //0.不可用 1.可用
     private Integer enableStatus;
     private Date createTime;
@@ -53,11 +53,11 @@ public class HeadLine {
         this.lineImg = lineImg;
     }
 
-    public Integer getPriority() {
+    public int getPriority() {
         return priority;
     }
 
-    public void setPriority(Integer priority) {
+    public void setPriority(int priority) {
         this.priority = priority;
     }
 

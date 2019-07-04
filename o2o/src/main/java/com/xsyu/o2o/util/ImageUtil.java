@@ -25,8 +25,8 @@ public class ImageUtil {
     private static final Random random = new Random();
     private static Logger logger = LoggerFactory.getLogger(ImageUtil.class);
 
-    public static File transferCommonsMultipartFile(CommonsMultipartFile commonsMultipartFile){
-       File newFile = new File(commonsMultipartFile.getOriginalFilename());
+    public static File transferCommonsMultipartFile(CommonsMultipartFile commonsMultipartFile) {
+        File newFile = new File(commonsMultipartFile.getOriginalFilename());
         try {
             commonsMultipartFile.transferTo(newFile);
         } catch (IOException e) {
@@ -38,6 +38,7 @@ public class ImageUtil {
 
     /**
      * 处理缩略图并返回路径并生成图片
+     *
      * @param thumbnail
      * @param targetAddr
      * @return
@@ -62,6 +63,7 @@ public class ImageUtil {
 
     /**
      * 创建目标路径的文件
+     *
      * @param targetAddr
      */
     private static void makeDirPath(String targetAddr) {
@@ -72,6 +74,7 @@ public class ImageUtil {
 
     /**
      * 获取文件扩展名
+     *
      * @param fileName
      * @return
      */
@@ -81,13 +84,33 @@ public class ImageUtil {
 
     /**
      * 生成随机文件名，当前时间+五位随机数
+     *
      * @return
      */
     public static String getRandomFileName() {
         int rand = random.nextInt(89999) + 10000;
         String nowTime = simpleDateFormat.format(new Date());
-        return nowTime+rand;
+        return nowTime + rand;
     }
 
+    /**
+     * 根据storePath来判断是文件还是目录
+     * 文件则直接删除文件
+     * 目录则删除该目录下所有文件
+     *
+     * @param storePath
+     */
+    public static void deleteFileOrPath(String storePath) {
+        File fileOrPath = new File(PathUtil.getImgBasePath() + storePath);
+        if (fileOrPath.exists()) {
+            if (fileOrPath.isDirectory()) {
+                File[] files = fileOrPath.listFiles();
+                for (int i = 0; i < files.length; i++) {
+                    files[i].delete();
+                }
+            }
+            fileOrPath.delete();
+        }
+    }
 
 }

@@ -14,7 +14,6 @@ public class LocalAuth {
     private Date lastEditTime;
     private PersonInfo personInfo;
 
-
     public Long getLocalAuthId() {
         return localAuthId;
     }

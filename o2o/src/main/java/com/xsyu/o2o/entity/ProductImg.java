@@ -17,7 +17,6 @@ public class ProductImg {
     private Date createTime;
     private Long productId;
 
-
     public Long getProductImgId() {
         return productImgId;
     }

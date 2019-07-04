@@ -19,4 +19,20 @@ public interface ShopService {
      * @return
      */
     ShopExecution addShop(Shop shop, InputStream shopImgInputStream, String fileName);
+
+    /**
+     * 通过Id获取店铺信息
+     * @param shopId
+     * @return
+     */
+    Shop getByShopId(long shopId);
+
+    /**
+     * 修改店铺信息 包括处理图片
+     * @param shop
+     * @param shopImgInputStream
+     * @param fileName
+     * @return
+     */
+    ShopExecution modifyShop(Shop shop, InputStream shopImgInputStream, String fileName);
 }
