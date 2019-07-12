@@ -10,5 +10,10 @@ import java.util.List;
  * 2019/6/30 15:53
  */
 public interface ShopCategoryDao {
+    /**
+     * 返回商铺类别
+     * @param shopCategoryCondition
+     * @return
+     */
     List<ShopCategory> queryShopCategory(@Param("shopCategoryCondition")ShopCategory shopCategoryCondition);
 }

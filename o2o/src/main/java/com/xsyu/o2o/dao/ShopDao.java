@@ -1,6 +1,9 @@
 package com.xsyu.o2o.dao;
 
 import com.xsyu.o2o.entity.Shop;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * Created by HYDYD.
@@ -27,4 +30,22 @@ public interface  ShopDao {
      * @return
      */
     Shop queryByShopId(long shopId);
+
+    /**
+     * 分页查询店铺，输入条件为店铺名，店铺类别，区域id，owner
+     * @param shopConditon
+     * @param rowIndex 从第几行开始取数据
+     * @param pageSize 返回的行数
+     * @return
+     */
+    List<Shop> queryShopList(@Param("shopCondition") Shop shopConditon,
+                             @Param("rowIndex") int rowIndex,
+                             @Param("pageSize") int pageSize);
+
+    /**
+     * 返回queryShopList总数
+     * @param shopCondition
+     * @return
+     */
+    int queryShopCount(@Param("shopCondition") Shop shopCondition);
 }

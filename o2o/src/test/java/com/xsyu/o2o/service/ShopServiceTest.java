@@ -16,6 +16,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by HYDYD.
@@ -63,5 +64,16 @@ public class ShopServiceTest extends BaseTest {
         InputStream is = new FileInputStream(shopImg);
         ShopExecution shopExecution = shopService.modifyShop(shop, is, "gakki.jpg");
         System.out.println(shopExecution.getShop().getShopImg());
+    }
+
+    @Test
+    public void testGetShopListAndCount(){
+        Shop shopCondition = new Shop();
+        ShopCategory shopCategory = new ShopCategory();
+        shopCategory.setShopCategoryId(1L);
+        shopCondition.setShopCategory(shopCategory);
+        ShopExecution shopExecution = shopService.getShopList(shopCondition, 3, 2);
+        System.out.println(shopExecution.getShopList().size());
+        System.out.println(shopExecution.getCount());
     }
 }

@@ -60,4 +60,20 @@ public class ShopExecution {
     public List<Shop> getShopList() {
         return shopList;
     }
+
+    public void setState(int state) {
+        this.state = state;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
+    }
+
+    public void setShop(Shop shop) {
+        this.shop = shop;
+    }
+
+    public void setShopList(List<Shop> shopList) {
+        this.shopList = shopList;
+    }
 }

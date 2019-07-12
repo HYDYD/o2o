@@ -10,6 +10,7 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by HYDYD.
@@ -20,7 +21,7 @@ public class ShopDaoTest extends BaseTest {
     private ShopDao shopDao;
 
     @Test
-    public void testInsertShop(){
+    public void testInsertShop() {
         Shop shop = new Shop();
         PersonInfo owner = new PersonInfo();
         Area area = new Area();
@@ -43,11 +44,11 @@ public class ShopDaoTest extends BaseTest {
         shop.setAdvice("审核中!");
 
         int effectedNum = shopDao.insertShop(shop);
-        Assert.assertEquals(1,effectedNum);
+        Assert.assertEquals(1, effectedNum);
     }
 
     @Test
-    public void testUpdateShop(){
+    public void testUpdateShop() {
         Shop shop = new Shop();
         shop.setShopId(1L);
 
@@ -55,12 +56,31 @@ public class ShopDaoTest extends BaseTest {
         shop.setLastEditTime(new Date());
 
         int effectedNum = shopDao.updateShop(shop);
-        Assert.assertEquals(1,effectedNum);
+        Assert.assertEquals(1, effectedNum);
     }
 
     @Test
-    public void testQueryShop(){
+    public void testQueryShop() {
         long shopId = 6;
         System.out.println(shopDao.queryByShopId(shopId).getArea().getAreaName());
+    }
+
+    @Test
+    public void testQueryShopList() {
+        Shop shopCondition = new Shop();
+        PersonInfo owner = new PersonInfo();
+        owner.setUserId(1L);
+        shopCondition.setOwner(owner);
+        List<Shop> shopList = shopDao.queryShopList(shopCondition, 0, 2);
+        System.out.println(shopList.size());
+    }
+
+    @Test
+    public void testQueryShopCount(){
+        Shop shopCondition = new Shop();
+        PersonInfo owner = new PersonInfo();
+        owner.setUserId(1L);
+        shopCondition.setOwner(owner);
+        System.out.println(shopDao.queryShopCount(shopCondition));
     }
 }

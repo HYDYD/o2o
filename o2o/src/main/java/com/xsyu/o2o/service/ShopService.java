@@ -35,4 +35,13 @@ public interface ShopService {
      * @return
      */
     ShopExecution modifyShop(Shop shop, InputStream shopImgInputStream, String fileName);
+
+    /**
+     * 根据shopCondition分页返回相应列表数据
+     * @param shopCondition
+     * @param pageIndex
+     * @param pageSize
+     * @return
+     */
+    ShopExecution getShopList(Shop shopCondition, int pageIndex, int pageSize);
 }
