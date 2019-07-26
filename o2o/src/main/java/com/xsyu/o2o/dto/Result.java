@@ -57,4 +57,5 @@ public class Result<T> {
     public void setErrorCode(int errorCode) {
         this.errorCode = errorCode;
     }
+
 }

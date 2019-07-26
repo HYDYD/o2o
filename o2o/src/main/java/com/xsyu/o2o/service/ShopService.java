@@ -1,5 +1,6 @@
 package com.xsyu.o2o.service;
 
+import com.xsyu.o2o.dto.ImageHolder;
 import com.xsyu.o2o.dto.ShopExecution;
 import com.xsyu.o2o.entity.Shop;
 
@@ -14,11 +15,10 @@ public interface ShopService {
     /**
      * 新加商店
      * @param shop
-     * @param shopImgInputStream
-     * @param fileName
+     * @param thumbnail
      * @return
      */
-    ShopExecution addShop(Shop shop, InputStream shopImgInputStream, String fileName);
+    ShopExecution addShop(Shop shop, ImageHolder thumbnail);
 
     /**
      * 通过Id获取店铺信息
@@ -30,11 +30,10 @@ public interface ShopService {
     /**
      * 修改店铺信息 包括处理图片
      * @param shop
-     * @param shopImgInputStream
-     * @param fileName
+     * @param thumbnail
      * @return
      */
-    ShopExecution modifyShop(Shop shop, InputStream shopImgInputStream, String fileName);
+    ShopExecution modifyShop(Shop shop, ImageHolder thumbnail);
 
     /**
      * 根据shopCondition分页返回相应列表数据

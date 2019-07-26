@@ -1,11 +1,12 @@
 package com.xsyu.o2o.exceptions;
 
-/**
- * Created by HYDYD.
- * 2019/6/29 15:21
- */
 public class ShopOperationException extends RuntimeException {
-    public ShopOperationException(String msg){
-        super(msg);
-    }
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2361446884822298905L;
+
+	public ShopOperationException(String msg) {
+		super(msg);
+	}
 }

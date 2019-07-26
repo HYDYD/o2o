@@ -1,6 +1,7 @@
 package com.xsyu.o2o.service.impl;
 
 import com.xsyu.o2o.dao.ShopDao;
+import com.xsyu.o2o.dto.ImageHolder;
 import com.xsyu.o2o.dto.ShopExecution;
 import com.xsyu.o2o.entity.Shop;
 import com.xsyu.o2o.enums.ShopStateEnum;
@@ -30,7 +31,7 @@ public class ShopServiceImpl implements ShopService {
 
     @Override
     @Transactional
-    public ShopExecution addShop(Shop shop, InputStream shopImgInputStream, String fileName) {
+    public ShopExecution addShop(Shop shop, ImageHolder thumbnail) {
         if (shop == null) {
             return new ShopExecution(ShopStateEnum.NULL_SHOP);
         }
@@ -42,9 +43,9 @@ public class ShopServiceImpl implements ShopService {
 
             if (effectedNum <= 0) throw new ShopOperationException("店铺创建失败");
 
-            if (shopImgInputStream != null) {
+            if (thumbnail.getImage() != null) {
                 try {
-                    addShopImg(shop, shopImgInputStream, fileName);
+                    addShopImg(shop, thumbnail);
                 } catch (Exception e) {
                     throw new ShopOperationException("addShopImg error:" + e.getMessage());
                 }
@@ -59,14 +60,12 @@ public class ShopServiceImpl implements ShopService {
 
     /**
      * 将图片加入shop
-     *
      * @param shop
-     * @param shopImgInputStream
-     * @param fileName
+     * @param thumbnail
      */
-    private void addShopImg(Shop shop, InputStream shopImgInputStream, String fileName) {
+    private void addShopImg(Shop shop, ImageHolder thumbnail) {
         String dest = PathUtil.getShopImgPath(shop.getShopId());
-        String shopImgAddr = ImageUtil.generatorThumbnail(shopImgInputStream, fileName, dest);
+        String shopImgAddr = ImageUtil.generatorThumbnail(thumbnail, dest);
         shop.setShopImg(shopImgAddr);
     }
 
@@ -83,25 +82,23 @@ public class ShopServiceImpl implements ShopService {
 
     /**
      * 更新店铺
-     *
      * @param shop
-     * @param shopImgInputStream
-     * @param fileName
+     * @param thumbnail
      * @return
      */
     @Override
-    public ShopExecution modifyShop(Shop shop, InputStream shopImgInputStream, String fileName) {
+    public ShopExecution modifyShop(Shop shop, ImageHolder thumbnail) {
         //是否需要处理图片
         if (shop == null || shop.getShopId() == null) {
             return new ShopExecution(ShopStateEnum.NULL_SHOP);
         } else {
             try {
-                if (shopImgInputStream != null && fileName != null && !"".equals(fileName)) {
+                if (thumbnail.getImage() != null && thumbnail.getImageName() != null && !"".equals(thumbnail.getImageName())) {
                     Shop tempShop = shopDao.queryByShopId(shop.getShopId());
                     if (tempShop != null) {
                         ImageUtil.deleteFileOrPath(tempShop.getShopImg());
                     }
-                    addShopImg(shop, shopImgInputStream, fileName);
+                    addShopImg(shop, thumbnail);
                 }
                 //更新图片信息
                 shop.setLastEditTime(new Date());

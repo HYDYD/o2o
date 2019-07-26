@@ -1,6 +1,7 @@
 package com.xsyu.o2o.web.shopadmin;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.xsyu.o2o.dto.ImageHolder;
 import com.xsyu.o2o.dto.ShopExecution;
 import com.xsyu.o2o.entity.Area;
 import com.xsyu.o2o.entity.PersonInfo;
@@ -129,7 +130,8 @@ public class ShopManagementController {
             shop.setOwner(owner);
             ShopExecution shopExecution = null;
             try {
-                shopExecution = shopService.addShop(shop, shopImg.getInputStream(), shopImg.getOriginalFilename());
+                ImageHolder imageHolder = new ImageHolder(shopImg.getOriginalFilename(),shopImg.getInputStream());
+                shopExecution = shopService.addShop(shop, imageHolder);
                 if (shopExecution.getState() == ShopStateEnum.CHECK.getState()) {
                     modelMap.put("success", true);
                     //该用户可操作的店铺列表
@@ -193,9 +195,10 @@ public class ShopManagementController {
 
             try {
                 if (shopImg == null) {
-                    shopExecution = shopService.modifyShop(shop, null, null);
+                    shopExecution = shopService.modifyShop(shop, null);
                 } else {
-                    shopExecution = shopService.modifyShop(shop, shopImg.getInputStream(), shopImg.getOriginalFilename());
+                    ImageHolder imageHolder = new ImageHolder(shopImg.getOriginalFilename(),shopImg.getInputStream());
+                    shopExecution = shopService.modifyShop(shop, imageHolder);
                 }
                 if (shopExecution.getState() == ShopStateEnum.SUCCESS.getState()) {
                     modelMap.put("success", true);

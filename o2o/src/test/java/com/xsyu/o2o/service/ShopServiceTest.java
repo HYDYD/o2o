@@ -1,6 +1,7 @@
 package com.xsyu.o2o.service;
 
 import com.xsyu.BaseTest;
+import com.xsyu.o2o.dto.ImageHolder;
 import com.xsyu.o2o.dto.ShopExecution;
 import com.xsyu.o2o.entity.Area;
 import com.xsyu.o2o.entity.PersonInfo;
@@ -51,7 +52,9 @@ public class ShopServiceTest extends BaseTest {
 
         File shopImg = new File("D:/TheDataOfJava/源码/upload/upload/images/item/headtitle/2017061320315746624.jpg");
         InputStream inputStream = new FileInputStream(shopImg);
-        ShopExecution shopExecution = shopService.addShop(shop, inputStream, shopImg.getName());
+
+        ImageHolder imageHolder = new ImageHolder(shopImg.getName(), inputStream);
+        ShopExecution shopExecution = shopService.addShop(shop,imageHolder);
 
         Assert.assertEquals(ShopStateEnum.CHECK.getState(),shopExecution.getState());
     }
@@ -62,7 +65,8 @@ public class ShopServiceTest extends BaseTest {
         shop.setShopId(1L);
         File shopImg = new File("C:/Users/Verge/Downloads/gakki.jpg");
         InputStream is = new FileInputStream(shopImg);
-        ShopExecution shopExecution = shopService.modifyShop(shop, is, "gakki.jpg");
+        ImageHolder imageHolder = new ImageHolder("gakki.jpg",is);
+        ShopExecution shopExecution = shopService.modifyShop(shop,imageHolder);
         System.out.println(shopExecution.getShop().getShopImg());
     }
 
