@@ -3,11 +3,15 @@ package com.xsyu.o2o.dao;
 import com.xsyu.BaseTest;
 import com.xsyu.o2o.entity.Product;
 import com.xsyu.o2o.entity.ProductCategory;
+import com.xsyu.o2o.entity.ProductImg;
 import com.xsyu.o2o.entity.Shop;
+import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
@@ -18,6 +22,8 @@ import static org.junit.Assert.assertEquals;
 public class ProductDaoTest extends BaseTest {
     @Autowired
     private ProductDao productDao;
+    @Autowired
+    private ProductImgDao productImgDao;
 
     @Test
     public void testInsertProduct(){
@@ -62,6 +68,66 @@ public class ProductDaoTest extends BaseTest {
         assertEquals(1, effectedNum);
         effectedNum = productDao.insertProduct(product3);
         assertEquals(1, effectedNum);
+    }
 
+    @Test
+    public void testQueryProductByProductId(){
+        long productId = 1;
+        ProductImg p1 = new ProductImg();
+        p1.setImgAddr("图片1");
+        p1.setImgDesc("测试图片1");
+        p1.setPriority(1);
+        p1.setCreateTime(new Date());
+        p1.setProductId(productId);
+        ProductImg p2 = new ProductImg();
+        p2.setImgAddr("图片2");
+        p2.setImgDesc("测试图片2");
+        p2.setPriority(1);
+        p2.setCreateTime(new Date());
+        p2.setProductId(productId);
+        List<ProductImg> productImgList = new ArrayList<>();
+        productImgList.add(p1);
+        productImgList.add(p2);
+        int effectedNum = productImgDao.batchInsertProductImg(productImgList);
+        assertEquals(2,effectedNum);
+        Product product = productDao.queryProductById(productId);
+        assertEquals(4,product.getProductImgList().size());
+        effectedNum = productImgDao.deleteProductImgByProductId(productId);
+        assertEquals(4,effectedNum);
+    }
+
+    @Test
+    public void testUpdateProduct(){
+        Product product = new Product();
+        ProductCategory productCategory = new ProductCategory();
+        Shop shop = new Shop();
+        shop.setShopId(1L);
+        productCategory.setPriority(2);
+        product.setProductId(1L);
+        product.setShop(shop);
+        product.setProductName("第一个产品");
+        product.setProductCategory(productCategory);
+        int effectedNum = productDao.updateProduct(product);
+        assertEquals(1,effectedNum);
+    }
+
+    @Test
+    public void testQueryProductList() throws Exception {
+        Product productCondition = new Product();
+        List<Product> productList = productDao.queryProductList(productCondition, 0, 3);
+        assertEquals(3, productList.size());
+        int count = productDao.queryProductCount(productCondition);
+        assertEquals(7, count);
+        productCondition.setProductName("测试");
+        productList = productDao.queryProductList(productCondition, 0, 4);
+        assertEquals(3, productList.size());
+        count = productDao.queryProductCount(productCondition);
+        assertEquals(3, count);
+    }
+
+    @Test
+    public void testUpdateProductCategoryToNull() {
+        int effectedNum = productDao.updateProductCategoryToNull(1L);
+        Assert.assertEquals(4,effectedNum);
     }
 }

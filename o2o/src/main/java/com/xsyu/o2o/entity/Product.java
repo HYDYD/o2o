@@ -20,7 +20,7 @@ public class Product {
     private Date createTime;
     private Date lastEditTime;
     //0.下架 1.在前端展示系统展示
-    private int enableStatus;
+    private Integer enableStatus;
 
     private List<ProductImg> productImgList;
     private ProductCategory productCategory;
@@ -99,11 +99,11 @@ public class Product {
         this.lastEditTime = lastEditTime;
     }
 
-    public int getEnableStatus() {
+    public Integer getEnableStatus() {
         return enableStatus;
     }
 
-    public void setEnableStatus(int enableStatus) {
+    public void setEnableStatus(Integer enableStatus) {
         this.enableStatus = enableStatus;
     }
 
@@ -129,5 +129,24 @@ public class Product {
 
     public void setShop(Shop shop) {
         this.shop = shop;
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "productId=" + productId +
+                ", productName='" + productName + '\'' +
+                ", productDesc='" + productDesc + '\'' +
+                ", imgAddr='" + imgAddr + '\'' +
+                ", normalPrice='" + normalPrice + '\'' +
+                ", promotionPrice='" + promotionPrice + '\'' +
+                ", priority=" + priority +
+                ", createTime=" + createTime +
+                ", lastEditTime=" + lastEditTime +
+                ", enableStatus=" + enableStatus +
+                ", productImgList=" + productImgList +
+                ", productCategory=" + productCategory +
+                ", shop=" + shop +
+                '}';
     }
 }
